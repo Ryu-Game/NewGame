@@ -5,7 +5,7 @@
 struct Game {
 	int score;
 
-	int pouseflg;
+	int select;
 	bool soundflg;
 	int ChoiseSE;
 };

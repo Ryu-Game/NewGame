@@ -43,7 +43,7 @@ void Game_Initialize() {
 	mg.ChoiseSE = LoadSoundMem("./Sounds/decision.mp3");
 	mg.soundflg = false;
 
-	mg.pouseflg = 0;
+	mg.select = 0;
 }
 
 void Game_Finalize() {
@@ -51,74 +51,97 @@ void Game_Finalize() {
 }
 
 void Game_Update() {
-	if (mg.pouseflg == 0 && mg.soundflg == false) {
-		ms.flg = 2;
-		for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
-			for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
-				if (ms.data[Sy][Sx] != 0) {
-					ms.flg = 0;
+	if (ms.flg != 1) {
+		if (mg.select == 0 && mg.soundflg == false) {
+			ms.flg = 2;
+			for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
+				for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
+					if (ms.data[Sy][Sx] != 0) {
+						ms.flg = 0;
+						break;
+					}
+				}
+				if (ms.flg == 0) {	//ƒQ[ƒ€’†
 					break;
 				}
+				//‘S•””j‰ó‚µ‚Ä‚¢‚½‚çI—¹”»’è
+				else if (ms.flg == 2 && Sy == 5) {
+					ms.flg = 1;
+				}
 			}
-			if (ms.flg == 0) {	//ƒQ[ƒ€’†
-				break;
-			}
-			//‘S•””j‰ó‚µ‚Ä‚¢‚½‚çI—¹”»’è
-			else if (ms.flg == 2 && Sy == 5) {
+
+			if (mp.Life == 0) {
 				ms.flg = 1;
 			}
-		}
+			Player_Update();
 
-		if (mp.Life == 0) {
-			ms.flg = 1;
-		}
-		Player_Update();
+			MoveBall();
 
-		MoveBall();
-
-		if (mp.ball_y >= mgr.SCREEN_HEIGHT) {
-			mp.Life--;
-			mp.ball_x = mp.InitPositionX;
-			mp.ball_y = mp.InitPositionY;
-			if (mp.ball_speedX < 0) {
-				mp.ball_speedX *= -1;
+			if (mp.ball_y >= mgr.SCREEN_HEIGHT) {
+				mp.Life--;
+				mp.ball_x = mp.InitPositionX;
+				mp.ball_y = mp.InitPositionY;
+				if (mp.ball_speedX < 0) {
+					mp.ball_speedX *= -1;
+				}
+				WaitTimer(500);
 			}
-			WaitTimer(500);
-		}
 
-		if (ms.flg == 1) {
-			WaitTimer(500);
-			SceneMgr_ChangeScene(eScene_Menu);
+			if (ms.flg == 1) {
+				WaitTimer(500);
+				SceneMgr_ChangeScene(eScene_Menu);
+			}
+
+			if (KeyFlg[KEY_INPUT_ESCAPE]) {
+				PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
+				mg.soundflg = true;
+			}
+
+			if (CheckSoundMem(mg.ChoiseSE) != 0 && mg.soundflg == true) {
+				mg.select = 1;
+				mg.soundflg = false;
+			}
 		}
-		
-		if (KeyFlg[KEY_INPUT_ESCAPE]) {
-			PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
-			mg.soundflg = true;
-		}
-		
-		if (CheckSoundMem(mg.ChoiseSE) != 0 && mg.soundflg == true) {
-			mg.pouseflg = 1;
-			mg.soundflg = false;
+		else {	//ƒ|[ƒY‰æ–Êˆ—
+
+			if (KeyFlg[KEY_INPUT_ESCAPE]) {
+				mg.select = 0;
+				PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
+				mg.soundflg = true;
+			}
+			else if (KeyFlg[KEY_INPUT_SPACE]) {
+				PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
+				mg.soundflg = true;
+				mg.select = 2;
+			}
+
+			if (CheckSoundMem(mg.ChoiseSE) != 0) {
+				if (mg.select == 0) {
+					mg.soundflg = false;
+				}
+				else if (mg.select == 2) {
+					SceneMgr_ChangeScene(eScene_Menu);
+				}
+			}
 		}
 	}
-	else {	//ƒ|[ƒY‰æ–Êˆ—
-		
+	else {
 		if (KeyFlg[KEY_INPUT_ESCAPE]) {
-			mg.pouseflg = 0;
+			mg.select = 0;
 			PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
 			mg.soundflg = true;
 		}
 		else if (KeyFlg[KEY_INPUT_SPACE]) {
 			PlaySoundMem(mg.ChoiseSE, DX_PLAYTYPE_BACK);
 			mg.soundflg = true;
-			mg.pouseflg = 2;
+			mg.select = 2;
 		}
 
 		if (CheckSoundMem(mg.ChoiseSE) != 0) {
-			if (mg.pouseflg == 0) {
-				mg.soundflg = false;
+			if (mg.select == 0) {
+				SceneMgr_ChangeScene(eScene_Game);
 			}
-			else if (mg.pouseflg == 2) {
+			else if (mg.select == 2) {
 				SceneMgr_ChangeScene(eScene_Menu);
 			}
 		}
@@ -126,27 +149,38 @@ void Game_Update() {
 }
 
 void Game_Draw() {
-	if (mg.pouseflg == 0 && mg.soundflg == false) {
-		FrameDraw();
-		StageDraw();
+	if (ms.flg !=1) {
+		if (mg.select == 0 && mg.soundflg == false) {
+			FrameDraw();
+			StageDraw();
 
-		Player_Draw();
+			Player_Draw();
 
-		SetFontSize(35);
-		int fontX = mgr.SCREEN_WIDTH / 2 + mgr.SCREEN_WIDTH / 4 + 100;
-		int fontY = mgr.SCREEN_HEIGHT / 2;
-		DrawFormatString(fontX - 75, fontY - 50, 0xffffff, "Score: %d", mg.score);
-		for (int life = 0; life < mp.Life; life++) {
-			DrawString(fontX + 35 * life, fontY, "Z", 0xffffff);
+			SetFontSize(35);
+			int fontX = mgr.SCREEN_WIDTH / 2 + mgr.SCREEN_WIDTH / 4 + 100;
+			int fontY = mgr.SCREEN_HEIGHT / 2;
+			DrawFormatString(fontX - 75, fontY - 50, 0xffffff, "Score: %d", mg.score);
+			for (int life = 0; life < mp.Life; life++) {
+				DrawString(fontX + 35 * life, fontY, "Z", 0xffffff);
+			}
+		}
+		else {
+			SetFontSize(50);
+			int fontX = mgr.SCREEN_WIDTH / 2;
+			int fontY = mgr.SCREEN_HEIGHT / 2;
+			DrawString(fontX - 75, fontY - 150, "POUSE", 0xffffff);
+			DrawString(fontX - 225, fontY - 50, "- PUSH[ESC] GAME -", 0xffffff);
+			DrawString(fontX - 250, fontY + 50, "- PUSH[SPACE] MENU -", 0xffffff);
 		}
 	}
 	else {
 		SetFontSize(50);
 		int fontX = mgr.SCREEN_WIDTH / 2;
 		int fontY = mgr.SCREEN_HEIGHT / 2;
-		DrawString(fontX - 75, fontY - 150, "POUSE", 0xffffff);
-		DrawString(fontX - 225, fontY - 50, "- PUSH[ESC] GAME -", 0xffffff);
-		DrawString(fontX - 250 , fontY + 50, "- PUSH[SPACE] MENU -", 0xffffff);
+		DrawString(fontX - 75, fontY - 100, "RESULT", 0xffffff);
+		DrawFormatString(fontX, fontY - 50, 0xffffff, "Score: %d", mg.score);
+		DrawString(fontX - 225, fontY, "- PUSH[ESC] GAME -", 0xffffff);
+		DrawString(fontX - 250, fontY + 50, "- PUSH[SPACE] MENU -", 0xffffff);
 	}
 }
 

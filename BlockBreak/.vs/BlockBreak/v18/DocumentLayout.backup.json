@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|solutionrelative:SRC\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|C:\\Production\\NewGame\\BlockBreak\\INC\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|solutionrelative:INC\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|C:\\Production\\NewGame\\BlockBreak\\INC\\SceneMgr.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|solutionrelative:INC\\SceneMgr.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|C:\\Production\\NewGame\\BlockBreak\\SRC\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|solutionrelative:SRC\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|C:\\Production\\NewGame\\BlockBreak\\INC\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|solutionrelative:INC\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2B7E6CBE-BDA4-43F5-AC56-5E7DB643B4C6}|BlockBreak.vcxproj|C:\\Production\\NewGame\\BlockBreak\\INC\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -34,11 +34,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "SceneMgr.h",
               "DocumentMoniker": "C:\\Production\\NewGame\\BlockBreak\\INC\\SceneMgr.h",
               "RelativeDocumentMoniker": "INC\\SceneMgr.h",
@@ -75,15 +75,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Production\\NewGame\\BlockBreak\\INC\\Game.h",
               "RelativeDocumentMoniker": "INC\\Game.h",
               "ToolTip": "C:\\Production\\NewGame\\BlockBreak\\INC\\Game.h",
               "RelativeToolTip": "INC\\Game.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-06-06T02:12:13.485Z"
+              "WhenOpened": "2026-06-06T02:12:13.485Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -97,16 +98,16 @@
               "Title": "Game.cpp",
               "DocumentMoniker": "C:\\Production\\NewGame\\BlockBreak\\SRC\\Game.cpp",
               "RelativeDocumentMoniker": "SRC\\Game.cpp",
-              "ToolTip": "C:\\Production\\NewGame\\BlockBreak\\SRC\\Game.cpp*",
-              "RelativeToolTip": "SRC\\Game.cpp*",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAewEsAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Production\\NewGame\\BlockBreak\\SRC\\Game.cpp",
+              "RelativeToolTip": "SRC\\Game.cpp",
+              "ViewState": "AgIAAJAAAAAAAAAAAAAAAJgAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-04T06:46:32.69Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Menu.cpp",
               "DocumentMoniker": "C:\\Production\\NewGame\\BlockBreak\\SRC\\Menu.cpp",
               "RelativeDocumentMoniker": "SRC\\Menu.cpp",

@@ -55,6 +55,8 @@ dkms.conf
 *.dwo
 *.db-wal
 *.db
+*.json
+*.suo
 *.db-shm
 *.vsidx
 *.opendb

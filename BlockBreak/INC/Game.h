@@ -1,7 +1,12 @@
 #pragma once
+#define STAGEX_MAX 6
+#define STAGEY_MAX 6
 
 struct Game {
 	int score;
+
+	int pouseflg;
+	int ChoiseSE;
 };
 
 struct Player {
@@ -16,6 +21,8 @@ struct Player {
 	bool ballflg;
 	int ball_speedY = 3;
 	int ball_speedX = 2;
+
+	int breakSE;
 };
 
 struct Stage {
@@ -46,3 +53,4 @@ void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom);
 
 extern Player mp;
 extern Stage ms;
+extern Game mg;

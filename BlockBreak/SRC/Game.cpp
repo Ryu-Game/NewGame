@@ -5,6 +5,7 @@
 
 #include <string.h>
 
+Game mg;
 Player mp;
 Stage ms;
 
@@ -37,6 +38,9 @@ void Game_Initialize() {
 	mp.ball_y = mp.InitPositionY;
 
 	mp.Life = 3;
+	mg.score = 0;
+	mp.breakSE = LoadSoundMem("./Sounds/break.mp3");
+	mg.ChoiseSE = LoadSoundMem("./Sounds/decision.mp3");
 }
 
 void Game_Finalize() {
@@ -49,8 +53,8 @@ void Game_Update() {
 	}
 
 	ms.flg = 2;
-	for (int Sy = 0; Sy < 6; Sy++) {
-		for (int Sx = 0; Sx < 6; Sx++) {
+	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
+		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			if (ms.data[Sy][Sx] != 0) {
 				ms.flg = 0;
 				break;
@@ -95,6 +99,7 @@ void Game_Draw() {
 	SetFontSize(35);
 	int fontX = mgr.SCREEN_WIDTH / 2 + mgr.SCREEN_WIDTH / 4 + 100;
 	int fontY = mgr.SCREEN_HEIGHT / 2;
+	DrawFormatString(fontX - 75,fontY - 50, 0xffffff, "Score: %d", mg.score);
 	for (int life = 0; life < mp.Life; life++) {
 		DrawString(fontX + 35 * life, fontY, "〇", 0xffffff);
 	}
@@ -118,8 +123,8 @@ void StageDraw() {
 	int red = 0xff0000;
 	int blue = 0x0000ff;
 	int green = 0x00ff00;
-	for (int Sy = 0; Sy < 6; Sy++) {
-		for (int Sx = 0; Sx < 6; Sx++) {
+	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
+		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			if (ms.data[Sy][Sx] != 0) {
 				if (ms.data[Sy][Sx] == 1) {
 					Color = red;
@@ -179,10 +184,12 @@ void MoveBall() {
 	//壁との当たり判定
 	if ((mp.ball_x + mp.ballSize > ms.frameRight) ||
 		(mp.ball_x - mp.ballSize < ms.frameLeft)) {
+		PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
 		mp.ball_speedX *= -1;
 		mp.ball_x += mp.ball_speedX;
 	}
 	else if (mp.ball_y - mp.ballSize < 0) {
+		PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
 		mp.ball_speedY *= -1;
 		mp.ball_y = mp.ballSize * 2 + 1;
 	}
@@ -190,6 +197,7 @@ void MoveBall() {
 	//プレイヤーとの当たり判定
 	mp.ballflg = CheckHitBox(Pleft, Ptop, Pright, Pbottom, mp.bar_x - mp.barSize, mp.bar_y, mp.bar_x + mp.barSize, mp.bar_y + 10);
 	if (mp.ballflg == true) {
+		PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
 		mp.ball_speedY *= -1;
 		mp.ball_y = mp.bar_y - mp.ballSize;
 		mp.ballflg = false;
@@ -212,8 +220,8 @@ bool CheckHitBox(int Pleft, int Ptop, int Pright, int Pbottom, int Eleft, int Et
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom) {
 	int Bleft, Btop, Bright, Bbottom;
 	//ブロックとの当たり判定
-	for (int Sy = 0; Sy < 6; Sy++) {
-		for (int Sx = 0; Sx < 6; Sx++) {
+	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
+		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			if (ms.data[Sy][Sx] != 0) {
 				Bleft = ms.InitX + ms.StageSizeX * Sx;
 				Btop = ms.StageSizeY * Sy;
@@ -225,9 +233,11 @@ void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom) {
 					Bleft, Btop, Bright, Bbottom);
 
 				if (mp.ballflg == true) {
+					mg.score += ms.data[Sy][Sx] * 100;
 					ms.data[Sy][Sx] = 0;
 					mp.ball_speedY *= -1;
 					mp.ball_y += mp.ball_speedY;
+					PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
 					break;
 				}
 			}

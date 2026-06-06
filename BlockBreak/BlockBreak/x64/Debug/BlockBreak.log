@@ -1,3 +1,2 @@
-﻿  Menu.cpp
-C:\Production\NewGame\BlockBreak\SRC\Menu.cpp(44,36): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+﻿  Game.cpp
   BlockBreak.vcxproj -> C:\Production\NewGame\BlockBreak\x64\Debug\BlockBreak.exe

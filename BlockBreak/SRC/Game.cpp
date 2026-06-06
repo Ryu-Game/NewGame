@@ -74,6 +74,9 @@ void Game_Update() {
 		mp.Life--;
 		mp.ball_x = mp.InitPositionX;
 		mp.ball_y = mp.InitPositionY;
+		if (mp.ball_speedX < 0) {
+			mp.ball_speedX *= -1;
+		}
 		WaitTimer(500);
 	}
 

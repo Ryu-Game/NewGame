@@ -58,3 +58,8 @@ dkms.conf
 *.db-shm
 *.vsidx
 *.opendb
+*.tlog
+*.log
+*.json
+*.vsidx
+*.lastbuildstate

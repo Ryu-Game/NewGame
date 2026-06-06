@@ -3,20 +3,37 @@
 #include "Input.h"
 #include "SceneMgr.h"
 
-void Menu_Initialize() {
+Menu mm;
 
+void Menu_Initialize() {
+	mm.SE = LoadSoundMem("./Sounds/decision.mp3");
+
+	mm.flg = 0;
 }
 
 void Menu_Finalize() {
-
+	DeleteSoundMem(mm.SE);
 }
 
 void Menu_Update() {
 	if (KeyFlg[KEY_INPUT_SPACE]) {
-		SceneMgr_ChangeScene(eScene_Game);
+		PlaySoundMem(mm.SE, DX_PLAYTYPE_BACK);
+		mm.flg = 1;
 	}
-	if (KeyFlg[KEY_INPUT_ESCAPE]) {
-		DxLib_End();
+	else if (KeyFlg[KEY_INPUT_ESCAPE]) {
+		PlaySoundMem(mm.SE, DX_PLAYTYPE_BACK);
+		mm.flg = 2;
+	}
+
+	if (CheckSoundMem(mm.SE) == 0 && mm.flg != 0) {
+		switch (mm.flg) {
+		case 1:
+			SceneMgr_ChangeScene(eScene_Game);
+			break;
+		case 2:
+			DxLib_End();
+			break;
+		}
 	}
 }
 

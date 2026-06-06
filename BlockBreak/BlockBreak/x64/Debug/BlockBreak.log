@@ -1,8 +1,3 @@
-﻿  Game.cpp
-  Input.cpp
-  main.cpp
-  Menu.cpp
-  SceneMgr.cpp
-D:\Production\VisualStudio\BlockBreak\SRC\Menu.cpp(27,36): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-  コードを生成中...
-  BlockBreak.vcxproj -> D:\Production\VisualStudio\BlockBreak\x64\Debug\BlockBreak.exe
+﻿  Menu.cpp
+C:\Production\NewGame\BlockBreak\SRC\Menu.cpp(44,36): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
+  BlockBreak.vcxproj -> C:\Production\NewGame\BlockBreak\x64\Debug\BlockBreak.exe

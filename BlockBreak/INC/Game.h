@@ -6,6 +6,7 @@ struct Game {
 	int score;
 
 	int pouseflg;
+	bool soundflg;
 	int ChoiseSE;
 };
 

@@ -64,12 +64,14 @@ void Game_Update() {
 				break;
 			}
 			//‘S•””j‰ó‚µ‚Ä‚¢‚½‚çI—¹”»’è
-			else if ((ms.flg == 2 && Sy == 5)
-				|| mp.Life == 0) {
+			else if (ms.flg == 2 && Sy == 5) {
 				ms.flg = 1;
 			}
 		}
 
+		if (mp.Life == 0) {
+			ms.flg = 1;
+		}
 		Player_Update();
 
 		MoveBall();

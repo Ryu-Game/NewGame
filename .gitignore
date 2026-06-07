@@ -65,3 +65,4 @@ dkms.conf
 *.json
 *.vsidx
 *.lastbuildstate
+/.vs/*

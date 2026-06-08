@@ -155,13 +155,17 @@
     <ClCompile Include="SRC\Input.cpp" />
     <ClCompile Include="SRC\main.cpp" />
     <ClCompile Include="SRC\Menu.cpp" />
+    <ClCompile Include="SRC\Player.cpp" />
     <ClCompile Include="SRC\SceneMgr.cpp" />
+    <ClCompile Include="SRC\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="INC\Game.h" />
     <ClInclude Include="INC\Input.h" />
     <ClInclude Include="INC\Menu.h" />
+    <ClInclude Include="INC\Player.h" />
     <ClInclude Include="INC\SceneMgr.h" />
+    <ClInclude Include="INC\Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

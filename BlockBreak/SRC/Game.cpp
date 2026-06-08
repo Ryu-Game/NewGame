@@ -2,44 +2,15 @@
 #include "Game.h"
 #include "Input.h"
 #include "SceneMgr.h"
-
-#include <string.h>
+#include "Player.h"
+#include "Stage.h"
 
 Game mg;
-Player mp;
-Stage ms;
-
-static int tempdata[6][6]{
-	{ 1,2,3,1,2,3 },
-	{ 2,3,1,2,3,1 },
-	{ 3,1,2,3,1,2 },
-	{ 1,2,3,1,2,3 },
-	{ 2,3,1,2,3,1 },
-	{ 3,1,2,3,1,3 }
-};
 
 void Game_Initialize() {
-	memcpy(ms.data, tempdata, sizeof(tempdata));
-	ms.flg = 0;
-
-	ms.frameRight = mgr.SCREEN_WIDTH / 2 + mgr.SCREEN_WIDTH / 4;
-	ms.frameLeft = mgr.SCREEN_WIDTH / 2 - mgr.SCREEN_WIDTH / 4;
-	ms.frameTop = 0;
-
-	ms.InitX = mgr.SCREEN_WIDTH / 2 - mgr.SCREEN_WIDTH / 4;
-	ms.StageSizeX = (mgr.SCREEN_WIDTH / 2) / 6;
-
-	mp.bar_x = mgr.SCREEN_WIDTH / 2;
-	mp.bar_y = mgr.SCREEN_HEIGHT - 50;
-	
-	mp.InitPositionX = mgr.SCREEN_WIDTH / 2 - 200;
-	mp.InitPositionY = mgr.SCREEN_HEIGHT / 2;
-	mp.ball_x = mp.InitPositionX;
-	mp.ball_y = mp.InitPositionY;
-
-	mp.Life = 3;
+	mg.gameflg = false;
 	mg.score = 0;
-	mp.breakSE = LoadSoundMem("./Sounds/break.mp3");
+
 	mg.ChoiseSE = LoadSoundMem("./Sounds/decision.mp3");
 	mg.soundflg = false;
 
@@ -47,7 +18,9 @@ void Game_Initialize() {
 }
 
 void Game_Finalize() {
-
+	Player_Finalize();
+	Stage_Finalize();
+	DeleteSoundMem(mg.ChoiseSE);
 }
 
 void Game_Update() {

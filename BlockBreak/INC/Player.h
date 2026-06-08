@@ -9,6 +9,7 @@ struct Player {
 	int InitPositionX, InitPositionY;
 
 	int barX, barY;
+	const int barSpeed = 2;
 	const int barSize = 32;
 
 	int Life;

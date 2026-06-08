@@ -14,5 +14,6 @@ void Game_Finalize();
 void Game_Update();
 void Game_Draw();
 
+bool CheckStage();
 
 extern Game mg;

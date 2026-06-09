@@ -16,21 +16,12 @@ struct Stage {
 	int frameRight, frameLeft, frameTop;
 };
 
-struct Color {
-	const int red = 0xff0000;
-	const int blue = 0x0000ff;
-	const int green = 0x00ff00;
-};
-
-
 void Stage_Initialize();
 void Stage_Finalize();
 void Stage_Update();
 void Stage_Draw();
 
-
 void Frame_Draw();
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom);
 
 extern Stage ms;
-extern Color cl;

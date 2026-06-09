@@ -1,10 +1,10 @@
 #include "DxLib.h"
 #include "Stage.h"
+#include "Common.h"
 #include "SceneMgr.h"
 #include "Player.h"
 
 Stage ms;
-Color cl;
 
 static int tempdata[STAGEY_MAX][STAGEX_MAX]{
 	{ 1,2,3,1,2,3 },
@@ -46,13 +46,13 @@ void Stage_Draw() {
 		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			if (ms.data[Sy][Sx] != 0) {
 				if (ms.data[Sy][Sx] == 1) {
-					ms.Color = cl.red;
+					ms.Color = color.red;
 				}
 				else if (ms.data[Sy][Sx] == 2) {
-					ms.Color = cl.blue;
+					ms.Color = color.blue;
 				}
 				else if (ms.data[Sy][Sx] == 3) {
-					ms.Color = cl.green;
+					ms.Color = color.green;
 				}
 				BlockX = ms.InitX + ms.StageSizeX * Sx;
 				BlockY = ms.StageSizeY * Sy;

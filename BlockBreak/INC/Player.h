@@ -3,7 +3,6 @@
 struct Player {
 	int ballX, ballY;
 	const int ballSize = 8;
-	bool ballflg;
 	int ballSpeedX = 2;
 	int ballSpeedY = 3;
 	int InitPositionX, InitPositionY;
@@ -21,6 +20,7 @@ void Player_Finalize();
 void Player_Update();
 void Player_Draw();
 
+void MoveBar();
 void MoveBall();
 bool CheckHitBox(int Pleft, int Ptop, int Pright, int Pbottom, int Eleft, int Etop, int Eright, int Ebottom);
 

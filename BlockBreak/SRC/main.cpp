@@ -8,9 +8,9 @@ Color color;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	ChangeWindowMode(TRUE);	//ウィンドウモード変更
 	DxLib_Init();	//Dxライブラリ初期化
+	SetUseCharCodeFormat(DX_CHARCODEFORMAT_UTF8);	//文字コード変更
 	SetGraphMode(mgr.SCREEN_WIDTH, mgr.SCREEN_HEIGHT, 32);	//画面サイズ
 	SetDrawScreen(DX_SCREEN_BACK);	//裏画面設定
-	SetUseCharCodeFormat(DX_CHARCODEFORMAT_SHIFTJIS);
 	SceneMgr_Initialize();	//初期シーン
 	while (ProcessMessage() == 0) {
 		ClearDrawScreen();		//画面初期化

@@ -3,6 +3,7 @@
 #include "Common.h"
 #include "SceneMgr.h"
 #include "Player.h"
+#include "Game.h"
 
 Stage ms;
 
@@ -16,23 +17,24 @@ static int tempdata[STAGEY_MAX][STAGEX_MAX]{
 };
 
 void Stage_Initialize() {
-	//ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±èª­ã¿è¾¼ã¿
+	//ƒXƒe[ƒWî•ñ“Ç‚İ‚İ
 	memcpy(ms.data, tempdata, sizeof(tempdata));
 	ms.flg = false;
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸æç”»åº§æ¨™
-	ms.frameRight = mgr.SCREEN_WIDTH / 2 + mgr.SCREEN_WIDTH / 4;
-	ms.frameLeft = mgr.SCREEN_WIDTH / 2 - mgr.SCREEN_WIDTH / 4;
+	//ƒXƒe[ƒW•`‰æÀ•W
+	ms.frameRight = (int)(mgr.SCREEN_WIDTH / 2) + (int)(mgr.SCREEN_WIDTH / 4);
+	ms.frameLeft = (int)(mgr.SCREEN_WIDTH / 2) - (int)(mgr.SCREEN_WIDTH / 4);
 	ms.frameTop = 0;
-	ms.InitX = mgr.SCREEN_WIDTH / 2 - mgr.SCREEN_WIDTH / 4;
+	ms.frameBottom = mgr.SCREEN_HEIGHT;
+	ms.InitX = (int)(mgr.SCREEN_WIDTH / 2) - (int)(mgr.SCREEN_WIDTH / 4);
 
-	//ã‚¹ãƒ†ãƒ¼ã‚¸æç”»ã‚µã‚¤ã‚º
-	ms.StageSizeX = (mgr.SCREEN_WIDTH / 2) / 6;
+	//ƒXƒe[ƒW•`‰æƒTƒCƒY
+	ms.StageSizeX = (int)((mgr.SCREEN_WIDTH / 2) / 6);
 
 }
 
 void Stage_Finalize() {
-	//ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
+	//ƒf[ƒ^íœ
 	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
 		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			ms.data[Sy][Sx] = 0;
@@ -41,7 +43,12 @@ void Stage_Finalize() {
 }
 
 void Stage_Update() {
-
+	int Pleft, Ptop, Pright, Pbottom;
+	Pleft = mp.ballX - mp.ballSize;
+	Ptop = mp.ballY - mp.ballSize;
+	Pright = mp.ballX + mp.ballSize;
+	Pbottom = mp.ballY + mp.ballSize;
+	CheckBallBlock(Pleft, Ptop, Pright, Pbottom);
 }
 
 void Stage_Draw() {
@@ -56,7 +63,7 @@ void Stage_Draw() {
 				else if (ms.data[Sy][Sx] == 2) {
 					ms.Color = color.blue;
 				}
-				else if (ms.data[Sy][Sx] == 3) {
+				else if (ms.data[Sy][Sx] == 0) {
 					ms.Color = color.green;
 				}
 				BlockX = ms.InitX + ms.StageSizeX * Sx;
@@ -65,28 +72,62 @@ void Stage_Draw() {
 			}
 		}
 	}
-}
+	DrawBox(ms.frameLeft, ms.frameTop, ms.frameRight, ms.frameBottom, color.white, false);
 
-void Frame_Draw() {
-	int Fright, Fleft, Ftop, Fbuttom;
-	int Ffour = mgr.SCREEN_WIDTH / 4;
-	Fright = mgr.SCREEN_WIDTH / 2 + Ffour;
-	Fleft = mgr.SCREEN_WIDTH / 2 - Ffour;
-	Ftop = 0;
-	Fbuttom = mgr.SCREEN_HEIGHT;
+	//“¾“_Eƒ‰ƒCƒt•`‰æ
+	int fontsize = 35;
+	SetFontSize(fontsize);
+	int fontX = (int)(mgr.SCREEN_WIDTH / 2) + (int)(mgr.SCREEN_WIDTH / 4);
+	int fontY = (int)(mgr.SCREEN_HEIGHT / 2);
+	DrawString(fontX + 10, fontY - 50, "Score:", color.white);
+	DrawFormatString(fontX + 10 + (int)(fontsize * 1.5) + fontsize * 2, fontY - 50, color.white, "%d", mg.score);
+	for (int life = 0; life < mp.Life; life++) {
+		DrawString(fontX + 10 + fontsize * life, fontY, "Z", color.white);
+	}
 
-	DrawBox(Fleft, Ftop, Fright, Fbuttom, 0xffffff, false);
+	DrawString(fontX + 10, fontY + 50, "PUSH [SPACE]", color.white);
+	DrawString(fontX + 10, fontY + 85, "POUSE", color.white);
 }
 
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom) {
 	int Bleft, Btop, Bright, Bbottom;
-	int StageChipX = (int)(mp.ballX / ms.StageSizeX);
-	int StageChipY = (int)(mp.ballY / ms.StageSizeY);
+	
+	//ƒuƒƒbƒN’Tõ
+	int startX = (int)((Pleft - ms.InitX) / ms.StageSizeX);
+	int endX = (int)((Pright - ms.InitX) / ms.StageSizeX);
+	int startY = (int)(Ptop / ms.StageSizeY);
+	int endY = (int)(Pbottom / ms.StageSizeY);
 
-	if (ms.data[StageChipY][StageChipX] != 0) {
+	//”ÍˆÍ•â³
+	if (startX < 0)startX = 0;
+	if (startY < 0)startY = 0;
+	if (endX >= STAGEX_MAX)endX = STAGEX_MAX - 1;
+	if (endY >= STAGEY_MAX)endY = STAGEY_MAX - 1;
 
+	for (int Sy = startY; Sy <= endY; Sy++) {
+		for (int Sx = startX; Sx <= endX; Sx++) {
+			//ƒuƒƒbƒN‚ª–³‚¯‚ê‚ÎƒXƒLƒbƒv
+			if (ms.data[Sy][Sx] == 0) {
+				continue;
+			}
+
+			//À•WŒvZ
+			Bleft = ms.InitX + (Sx * ms.StageSizeX);
+			Btop = Sy * ms.StageSizeY;
+			Bright = Bleft + ms.StageSizeX;
+			Bbottom = Btop + ms.StageSizeY;
+
+			//“–‚½‚è”»’è
+			if (CheckHitBox(Pleft, Ptop, Pright, Pbottom,
+				Bleft, Btop, Bright, Bbottom)) {
+				PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
+				mg.score += ms.data[Sy][Sx] * 10;
+				ms.data[Sy][Sx] = 0;
+				mp.ballSpeedY *= -1;
+
+				return;
+			}
+
+		}
 	}
-	
-	Bleft = ms.InitX + ms.StageSizeX * StageChipX;
-	
 }

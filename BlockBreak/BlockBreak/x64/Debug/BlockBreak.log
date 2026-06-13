@@ -1,11 +1,2 @@
 ﻿  Game.cpp
-  Player.cpp
-D:\Production\NewGame\BlockBreak\SRC\Player.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  SceneMgr.cpp
-  Stage.cpp
-D:\Production\NewGame\BlockBreak\SRC\Stage.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-D:\Production\NewGame\BlockBreak\SRC\Stage.cpp(82,19): warning C4101: 'Bright': ローカル変数は 1 度も使われていません。
-D:\Production\NewGame\BlockBreak\SRC\Stage.cpp(82,27): warning C4101: 'Bbottom': ローカル変数は 1 度も使われていません。
-D:\Production\NewGame\BlockBreak\SRC\Stage.cpp(82,13): warning C4101: 'Btop': ローカル変数は 1 度も使われていません。
-  コードを生成中...
   BlockBreak.vcxproj -> D:\Production\NewGame\BlockBreak\x64\Debug\BlockBreak.exe

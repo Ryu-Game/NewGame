@@ -13,7 +13,7 @@ struct Stage {
 	
 	int Color;
 
-	int frameRight, frameLeft, frameTop;
+	int frameRight, frameLeft, frameTop, frameBottom;
 };
 
 void Stage_Initialize();
@@ -21,7 +21,6 @@ void Stage_Finalize();
 void Stage_Update();
 void Stage_Draw();
 
-void Frame_Draw();
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom);
 
 extern Stage ms;

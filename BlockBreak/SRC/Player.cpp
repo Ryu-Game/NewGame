@@ -22,10 +22,23 @@ void Player_Initialize() {
 }
 
 void Player_Finalize() {
-
+	DeleteSoundMem(mp.breakSE);
 }
 
 void Player_Update() {
+	MoveBar();
+	MoveBall();
+}
+
+void Player_Draw() {
+	//バー描画
+	DrawBox(mp.barX - mp.barSize, mp.barY, mp.barX + mp.barSize, mp.barY + 10, 0xffffff, false);
+
+	//ボール描画
+	DrawCircle(mp.ballX, mp.ballY, mp.ballSize, 0xffffff, false);
+}
+
+void MoveBar() {
 	int embed = mp.barSpeed + 1;
 	if (CheckHitKey(KEY_INPUT_RIGHT)) {
 		mp.barX += mp.barSpeed;
@@ -41,14 +54,6 @@ void Player_Update() {
 	}
 }
 
-void Player_Draw() {
-	//バー描画
-	DrawBox(mp.barX - mp.barSize, mp.barY, mp.barX + mp.barSize, mp.barY + 10, 0xffffff, false);
-
-	//ボール描画
-	DrawCircle(mp.ballX, mp.ballY, mp.ballSize, 0xffffff, false);
-}
-
 void MoveBall() {
 	mp.ballX += mp.ballSpeedX;
 	mp.ballY += mp.ballSpeedY;
@@ -58,7 +63,6 @@ void MoveBall() {
 	Ptop = mp.ballY - mp.ballSize;
 	Pright = mp.ballX + mp.ballSize;
 	Pbottom = mp.ballY + mp.ballSize;
-	CheckBallBlock(Pleft, Ptop, Pright, Pbottom);
 
 	//壁との当たり判定
 	if ((mp.ballX + mp.ballSize > ms.frameRight) ||
@@ -74,12 +78,10 @@ void MoveBall() {
 	}
 
 	//プレイヤーとの当たり判定
-	mp.ballflg = CheckHitBox(Pleft, Ptop, Pright, Pbottom, mp.barX - mp.barSize, mp.barY, mp.barX + mp.barSize, mp.barY + 10);
-	if (mp.ballflg == true) {
+	if (CheckHitBox(Pleft, Ptop, Pright, Pbottom, mp.barX - mp.barSize, mp.barY, mp.barX + mp.barSize, mp.barY + 10)) {
 		PlaySoundMem(mp.breakSE, DX_PLAYTYPE_BACK);
 		mp.ballSpeedY *= -1;
 		mp.ballY = mp.barY - mp.ballSize;
-		mp.ballflg = false;
 	}
 }
 

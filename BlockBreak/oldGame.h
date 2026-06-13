@@ -55,3 +55,26 @@ void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom);
 extern Player mp;
 extern Stage ms;
 extern Game mg;
+
+
+
+///ココからは作成途中
+#pragma once
+
+struct Game {
+	int score;
+
+	int select;
+	bool gameflg;
+	bool soundflg;
+	int ChoiseSE;
+};
+
+void Game_Initialize();
+void Game_Finalize();
+void Game_Update();
+void Game_Draw();
+
+bool CheckStage();
+
+extern Game mg;

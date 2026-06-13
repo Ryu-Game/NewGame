@@ -32,7 +32,12 @@ void Stage_Initialize() {
 }
 
 void Stage_Finalize() {
-
+	//データ削除
+	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
+		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
+			ms.data[Sy][Sx] = 0;
+		}
+	}
 }
 
 void Stage_Update() {
@@ -75,10 +80,13 @@ void Frame_Draw() {
 
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom) {
 	int Bleft, Btop, Bright, Bbottom;
-	int PlayerCheckX = mp.ballX + ms.frameLeft;
-	int PlayerCheckY = mp.ballY;
-	int CheckStage = (int)(PlayerCheckX / ms.StageSizeX);
+	int StageChipX = (int)(mp.ballX / ms.StageSizeX);
+	int StageChipY = (int)(mp.ballY / ms.StageSizeY);
+
+	if (ms.data[StageChipY][StageChipX] != 0) {
+
+	}
 	
-	Bleft = ms.InitX + ms.StageSizeX * CheckStage;
+	Bleft = ms.InitX + ms.StageSizeX * StageChipX;
 	
 }

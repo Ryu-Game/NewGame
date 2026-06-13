@@ -1,4 +1,4 @@
-#include "DxLib.h"
+﻿#include "DxLib.h"
 #include "Game.h"
 #include "Input.h"
 #include "SceneMgr.h"
@@ -8,7 +8,7 @@
 Game mg;
 
 void Game_Initialize() {
-	mg.gameflg = false;
+	mg.gameflg = true;
 	mg.score = 0;
 
 	mg.ChoiseSE = LoadSoundMem("./Sounds/decision.mp3");

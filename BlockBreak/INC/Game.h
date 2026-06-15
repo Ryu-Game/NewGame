@@ -1,13 +1,13 @@
 #pragma once
 
 struct Game {
-	int score;
+	int score;		//得点
 
-	int select;
-	bool gameflg;
-	bool pouseflg;
-	bool soundflg;
-	int ChoiseSE;
+	int select;		//画面選択(0:Game, 1:Pouse, 2: Menu)
+	bool gameflg;	//ゲームクリア判定
+	bool pouseflg;	//ポーズ画面判定
+	bool soundflg;	//サウンド流れているか判定
+	int ChoiseSE;	//SE
 };
 
 void Game_Initialize();

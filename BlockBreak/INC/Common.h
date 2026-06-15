@@ -1,6 +1,6 @@
 #pragma once
 
-struct Color {
+struct Color {	//描画色
 	const int white = 0xffffff;
 	const int black = 0x000000;
 	const int red = 0xff0000;

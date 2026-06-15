@@ -43,6 +43,7 @@ void Stage_Finalize() {
 }
 
 void Stage_Update() {
+	//プレイヤー座標格納
 	int Pleft, Ptop, Pright, Pbottom;
 	Pleft = mp.ballX - mp.ballSize;
 	Ptop = mp.ballY - mp.ballSize;
@@ -52,8 +53,8 @@ void Stage_Update() {
 }
 
 void Stage_Draw() {
+	//ブロック描画処理
 	int BlockX, BlockY;
-
 	for (int Sy = 0; Sy < STAGEY_MAX; Sy++) {
 		for (int Sx = 0; Sx < STAGEX_MAX; Sx++) {
 			if (ms.data[Sy][Sx] != 0) {
@@ -89,6 +90,7 @@ void Stage_Draw() {
 	DrawString(fontX + 10, fontY + 85, "POUSE", color.white);
 }
 
+//ボールとブロックの当たり判定処理
 void CheckBallBlock(int Pleft, int Ptop, int Pright, int Pbottom) {
 	int Bleft, Btop, Bright, Bbottom;
 	

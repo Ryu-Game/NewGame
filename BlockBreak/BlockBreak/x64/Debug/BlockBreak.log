@@ -1,2 +1,16 @@
 ﻿  Game.cpp
+  Menu.cpp
+D:\Production\NewGame\BlockBreak\INC\Game.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SRC/Game.cpp' をコンパイルしています)
+  
+  SceneMgr.cpp
+D:\Production\NewGame\BlockBreak\INC\Game.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SRC/SceneMgr.cpp' をコンパイルしています)
+  
+  Stage.cpp
+D:\Production\NewGame\BlockBreak\INC\Game.h(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  (ソース ファイル 'SRC/Stage.cpp' をコンパイルしています)
+  
+  main.cpp
+  コードを生成中...
   BlockBreak.vcxproj -> D:\Production\NewGame\BlockBreak\x64\Debug\BlockBreak.exe

@@ -9,7 +9,7 @@ void Game_Initialize() {
 	LoadDivGraph("images/janken.png", 3, 3, 1, mp.jw, mp.jh, mp.gh);
 	mg.changeflg = true;
 	mg.counttime = rand();
-	mg.judgenum = 4;
+	mg.judgenum = 3;
 }
 
 
@@ -78,7 +78,7 @@ void PlayerHands() {
 
 void Game_Judge() {
 	if (!mg.changeflg) {
-		if (mg.judgenum == 4) {
+		if (mg.judgenum == 3) {
 
 			int ehand_Judge = mp.eHand;
 			if (ehand_Judge == 0) {
@@ -99,7 +99,7 @@ void Game_Judge() {
 
 		}
 		if (CheckHitKey(KEY_INPUT_SPACE) != 0) {
-			mg.judgenum = 4;			
+			mg.judgenum = 3;			
 			mg.changeflg = true;
 		}
 	}

@@ -9,7 +9,10 @@ void Game_Initialize() {
 	LoadDivGraph("images/janken.png", 3, 3, 1, mp.jw, mp.jh, mp.gh);
 	mg.changeflg = true;
 	mg.counttime = rand();
-	mg.judgenum = 3;
+	mg.judgenum = 0;
+
+	mg.soundgamestart = LoadSoundMem("sound/jankenpon.mp3");
+	mg.soundsame = LoadSoundMem("sound/aikodesho.mp3");
 }
 
 
@@ -38,14 +41,14 @@ void Game_Draw() {
 
 	//勝敗描画
 	switch (mg.judgenum) {
-	case 0:
-		DrawString(mgr.SCREEN_WIDTH / 2, mgr.SCREEN_HEIGHT - 120, "あいこで・・・", 0xffffff);
-		break;
 	case 1:
 		DrawString(30, mgr.SCREEN_HEIGHT - 120, "勝ち！", 0xffffff);
 		break;
 	case 2:
 		DrawString(30, mgr.SCREEN_HEIGHT - 120, "負け…", 0xffffff);
+		break;
+	case 3:
+		DrawString(mgr.SCREEN_WIDTH / 2, mgr.SCREEN_HEIGHT - 120, "あいこで・・・", 0xffffff);
 		break;
 	}
 }
@@ -78,7 +81,7 @@ void PlayerHands() {
 
 void Game_Judge() {
 	if (!mg.changeflg) {
-		if (mg.judgenum == 3) {
+		if (mg.judgenum == 0) {
 
 			int ehand_Judge = mp.eHand;
 			if (ehand_Judge == 0) {
@@ -86,7 +89,7 @@ void Game_Judge() {
 			}
 			//あいこ
 			if (mp.pHand == mp.eHand) {
-				mg.judgenum = 0;
+				mg.judgenum = 3;
 			}
 			//勝ち
 			else if (mp.pHand == ehand_Judge - 1) {
@@ -99,8 +102,13 @@ void Game_Judge() {
 
 		}
 		if (CheckHitKey(KEY_INPUT_SPACE) != 0) {
-			mg.judgenum = 3;			
-			mg.changeflg = true;
+			if (mg.judgenum == 3) {
+				mg.judgenum = 0;
+				mg.changeflg = true;
+			}
+			else {
+				SceneMgr_ChangeScene(eScene_Menu);
+			}
 		}
 	}
 }

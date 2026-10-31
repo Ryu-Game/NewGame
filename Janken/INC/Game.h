@@ -3,7 +3,17 @@
 struct Game {
 	bool changeflg;
 	int counttime;
-	int judgenum;	//0:‚ ‚¢‚±1:‚©‚¿2:‚Ü‚¯
+	int judgenum;
+	/****************
+	* •Ï”–¼:judgenum
+	* 0:ƒQ[ƒ€’†
+	* 1:Ÿ—˜
+	* 2:”s–k
+	* 3:‚ ‚¢‚±
+	****************/
+
+	int soundgamestart;
+	int soundsame;
 };
 
 struct Player {

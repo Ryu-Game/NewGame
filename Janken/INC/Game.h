@@ -14,6 +14,7 @@ struct Game {
 
 	int soundgamestart;
 	int soundsame;
+	int soundhandle;
 };
 
 struct Player {
@@ -33,3 +34,5 @@ void Game_Draw();		//•`‰æ
 
 void PlayerHands();		//è‚Ìó‘Ôˆ—
 void Game_Judge();		//Ÿ”sˆ—
+void SoundPlayer(int handle);		//‰¹Œ¹Ä¶ˆ—
+void SoundFinish();		//‰¹Œ¹I—¹”»’è

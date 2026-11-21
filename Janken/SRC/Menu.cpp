@@ -12,7 +12,7 @@ void Menu_Finalize() {
 }
 
 void Menu_Update(){
-	if (CheckHitKey(KEY_INPUT_SPACE)) {
+	if (iKeyFlg & KEY_INPUT_SPACE) {
 		SceneMgr_ChangeScene(eScene_Game);
 	}
 }

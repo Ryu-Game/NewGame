@@ -2,6 +2,7 @@
 #include "SceneMgr.h"
 #include "Game.h"
 #include "Menu.h"
+#include "Input.h"
 
 static eScene mScene = eScene_Menu;		//シーン管理変数(デバッグでゲーム開始)
 static eScene mNextScene = eScene_None; //次のシーン管理変数
@@ -36,7 +37,7 @@ void SceneMgr_Update() {
 		SceneMgr_InitializeModule(mScene);	//現在のシーンを初期化
 	}
 
-	if (CheckHitKey(KEY_INPUT_ESCAPE)) {
+	if (iKeyFlg & KEY_INPUT_ESCAPE) {
 		DxLib_End();
 	}
 

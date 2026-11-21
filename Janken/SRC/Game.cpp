@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "Game.h"
+#include "Input.h"
 #include "SceneMgr.h"
 
 struct Game mg;
@@ -13,6 +14,9 @@ void Game_Initialize() {
 
 	mg.soundgamestart = LoadSoundMem("sound/jankenpon.mp3");
 	mg.soundsame = LoadSoundMem("sound/aikodesho.mp3");
+	mg.soundhandle = -1;
+
+	SoundPlayer(mg.soundgamestart);
 }
 
 
@@ -22,7 +26,8 @@ void Game_Finalize() {
 
 
 void Game_Update() {
-	
+	SoundFinish();
+
 	PlayerHands();
 	Game_Judge();
 }
@@ -61,17 +66,17 @@ void PlayerHands() {
 	}
 
 	//PlayerHandèàóù
-	if (mg.changeflg) {
-		if (CheckHitKey(KEY_INPUT_1) != 0 ||
-			CheckHitKey(KEY_INPUT_2) != 0 ||
-			CheckHitKey(KEY_INPUT_3) != 0) {
-			if (CheckHitKey(KEY_INPUT_1) != 0) {
+	if (mg.changeflg && mg.soundhandle == -1) {
+		if (iKeyFlg & KEY_INPUT_1 ||
+			iKeyFlg & KEY_INPUT_2 ||
+			iKeyFlg & KEY_INPUT_1) {
+			if (iKeyFlg & KEY_INPUT_1) {
 				mp.pHand = 0;
 			}
-			else if (CheckHitKey(KEY_INPUT_2) != 0) {
+			else if (iKeyFlg & KEY_INPUT_2) {
 				mp.pHand = 1;
 			}
-			else if (CheckHitKey(KEY_INPUT_3) != 0) {
+			else if (iKeyFlg & KEY_INPUT_3) {
 				mp.pHand = 2;
 			}
 			mg.changeflg = false;
@@ -101,14 +106,31 @@ void Game_Judge() {
 			}
 
 		}
-		if (CheckHitKey(KEY_INPUT_SPACE) != 0) {
+		if (iKeyFlg & KEY_INPUT_SPACE) {
 			if (mg.judgenum == 3) {
 				mg.judgenum = 0;
 				mg.changeflg = true;
+
+				SoundPlayer(mg.soundsame);
 			}
 			else {
 				SceneMgr_ChangeScene(eScene_Menu);
 			}
+		}
+	}
+}
+
+//âπåπçƒèàóù
+void SoundPlayer(int handle) {
+	PlaySoundMem(handle, DX_PLAYTYPE_BACK);
+	mg.soundhandle = handle;
+}
+
+//âπåπèIóπîªíË
+void SoundFinish() {
+	if (mg.soundhandle != -1) {
+		if (CheckSoundMem(mg.soundhandle) == 0) {
+			mg.soundhandle = -1;
 		}
 	}
 }
